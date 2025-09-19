@@ -1,0 +1,64 @@
+tasks:
+  - id: FTR-01
+    title: Database foundation
+    depends_on: []
+    acceptance_criteria:
+      - "Migrations provision core tables, indexes, and retention policies described in docs/DataModel.md on a fresh database."
+      - "Shared ORM/models layer exposes typed entities and session utilities consumed by backend services."
+      - "Automated test suite for database layer runs via pytest with ≥80% coverage on packages touching persistence."
+  - id: FTR-02
+    title: Wallet ingestion pipeline
+    depends_on: [FTR-01]
+    acceptance_criteria:
+      - "Workers normalize Alchemy/Etherscan payloads and enqueue events with <2s end-to-end latency in tests."
+      - "API ingestion endpoints validate, persist, and acknowledge batched events with appropriate audit logging."
+      - "Replay/backfill jobs handle at least 1k historical events without data loss in integration tests."
+  - id: FTR-03
+    title: Scoring and bias engine
+    depends_on: [FTR-02]
+    acceptance_criteria:
+      - "Wallet credibility scores update across 1h/4h/24h windows via tested EWMA pipeline."
+      - "Bias vectors per asset/timeframe persist to database and surface via API with confidence metrics."
+      - "LLM trigger decisions respect cost constraints and unit tests cover edge scenarios."
+  - id: FTR-04
+    title: Risk and policy enforcement
+    depends_on: [FTR-03]
+    acceptance_criteria:
+      - "Policy engine validates proposed trades against capital, drawdown, and correlation rules before execution."
+      - "Risk monitor surfaces real-time metrics and breach alerts to monitoring stack."
+      - "Kill switch procedures cancel orders and close demo positions in simulation tests."
+  - id: FTR-05
+    title: OKX execution (demo)
+    depends_on: [FTR-04]
+    acceptance_criteria:
+      - "Demo-mode OKX client with request signing and sandbox endpoints passes mocked integration tests."
+      - "Order manager orchestrates order lifecycle (create → monitor → close) behind policy checks."
+      - "Execution telemetry records fills, fees, and errors to audit_log table."
+  - id: FTR-06
+    title: LLM analysis integration
+    depends_on: [FTR-03, FTR-04]
+    acceptance_criteria:
+      - "Groq client wrapper supports tiered model selection, batching, and semantic cache hit rate reporting."
+      - "LLM-triggered analyses store narratives, bias impacts, and proposed actions linked to events."
+      - "Daily cost tracker enforces <$10 budget with alerting when 80% threshold breached."
+  - id: FTR-07
+    title: PWA frontend experience
+    depends_on: [FTR-05, FTR-06]
+    acceptance_criteria:
+      - "Next.js PWA provides authenticated dashboard with positions, bias, and whale activity views."
+      - "Realtime updates via WebSocket bridge render within 1s of backend event emission in tests."
+      - "Chat assistant surfaces LLM explanations with cited events and confidence scores."
+  - id: FTR-08
+    title: Observability and alerting
+    depends_on: [FTR-05]
+    acceptance_criteria:
+      - "Prometheus-style metrics exported for trading, whale, system, and LLM KPIs defined in docs/Monitoring.md."
+      - "Structured logging and distributed tracing propagate request IDs across services and workers."
+      - "Alert rules trigger for drawdown, risk utilization, and LLM budget thresholds with notification mocks."
+  - id: FTR-09
+    title: QA hardening and documentation
+    depends_on: [FTR-01, FTR-02, FTR-03, FTR-04, FTR-05, FTR-06, FTR-07, FTR-08]
+    acceptance_criteria:
+      - "Repository achieves ≥80% overall coverage and includes regression suites for critical flows."
+      - "Playbooks, runbooks, and deployment guides updated with progressive mode procedures."
+      - "CI pipeline gates merges on tests, lint, security scans, and coverage thresholds."
