@@ -1,3 +1,3 @@
-Toplam: 5/28 (%17.9)
-Bar: ▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░
-Son biten: FTR-02-ST1 - Ingest worker skeleton
+Toplam: 6/28 (%21.4)
+Bar: ▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░
+Son biten: FTR-02-ST2 - Event normalization API
