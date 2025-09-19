@@ -1,3 +1,3 @@
-Toplam: 7/28 (%25.0)
-Bar: ▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░
-Son biten: FTR-02-ST3 - Historical backfill & dedupe
+Toplam: 8/28 (%28.6)
+Bar: ▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░
+Son biten: FTR-03-ST1 - Scoring engine core
