@@ -1,0 +1,27 @@
+environments:
+  demo:
+    max_position_size_pct: 10.0
+    max_daily_loss_pct: 20.0
+    max_leverage: 10
+    max_open_positions: 10
+    require_2fa: false
+    
+  paper:
+    max_position_size_pct: 2.0
+    max_daily_loss_pct: 5.0
+    max_leverage: 5
+    max_open_positions: 5
+    require_2fa: false
+    
+  live:
+    max_position_size_pct: 0.25
+    max_daily_loss_pct: 3.0
+    max_leverage: 3
+    max_open_positions: 3
+    require_2fa: true
+    min_wallet_credibility: 5.0
+    
+correlation_limits:
+  btc_eth_combined: 0.70
+  total_crypto: 1.00
+  same_direction: 0.80
