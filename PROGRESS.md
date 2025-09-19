@@ -1,3 +1,3 @@
-Toplam: 1/28 (%3.6)
-Bar: ▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-Son biten: FTR-01-ST1 - Bootstrap database toolkit
+Toplam: 2/28 (%7.1)
+Bar: ▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░
+Son biten: FTR-01-ST2 - Author core schema migrations
