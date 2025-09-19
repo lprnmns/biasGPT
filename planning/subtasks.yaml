@@ -1,0 +1,283 @@
+subtasks:
+  - id: FTR-01-ST1
+    task: FTR-01
+    title: "Bootstrap database toolkit"
+    description: "Set up shared database settings, environment configuration, and session utilities for services."
+    touched_paths: ["packages/db/**", "services/api/__init__.py", "services/api/config/**", "config/database/**", "tests/unit/test_db_config.py"]
+    tests:
+      - "pytest tests/unit/test_db_config.py -q"
+    done_when:
+      - "pytest green"
+      - "Local Postgres URL loads from env and health check passes"
+  - id: FTR-01-ST2
+    task: FTR-01
+    title: "Author core schema migrations"
+    description: "Create migration suite covering tables, indexes, and retention policies defined in docs/DataModel.md."
+    touched_paths: ["services/api/migrations/**", "packages/db/migrations/**", "tests/integration/test_migrations.py"]
+    tests:
+      - "pytest tests/integration/test_migrations.py -q"
+    done_when:
+      - "pytest green"
+      - "Fresh database migrates up and down without errors"
+  - id: FTR-01-ST3
+    task: FTR-01
+    title: "Implement ORM models"
+    description: "Map SQLAlchemy models and Pydantic schemas for all core tables with relationships and constraints."
+    touched_paths: ["packages/db/models/**", "services/api/schemas/**", "tests/unit/test_models.py"]
+    tests:
+      - "pytest tests/unit/test_models.py -q"
+    done_when:
+      - "pytest green"
+      - "Model metadata matches migration definitions"
+  - id: FTR-01-ST4
+    task: FTR-01
+    title: "Repository layer & fixtures"
+    description: "Add CRUD repositories, factories, and fixtures to access database entities from backend services."
+    touched_paths: ["services/api/repositories/**", "tests/integration/test_repositories.py", "tests/fixtures/db.py"]
+    tests:
+      - "pytest tests/integration/test_repositories.py -q"
+    done_when:
+      - "pytest green"
+      - "Integration tests cover create/read/update/delete flows"
+  - id: FTR-02-ST1
+    task: FTR-02
+    title: "Ingest worker skeleton"
+    description: "Build Cloudflare Worker-compatible ingestion service with queue producer and retry logic."
+    touched_paths: ["workers/ingest/**", "packages/queue/**", "tests/unit/test_ingest_worker.py"]
+    tests:
+      - "pytest tests/unit/test_ingest_worker.py -q"
+    done_when:
+      - "pytest green"
+      - "Mocked Alchemy payloads reach queue with metadata"
+  - id: FTR-02-ST2
+    task: FTR-02
+    title: "Event normalization API"
+    description: "Expose FastAPI endpoint for batched event ingestion with validation and audit logging."
+    touched_paths: ["services/api/routes/events.py", "services/api/schemas/events.py", "services/api/dependencies/**", "tests/integration/test_event_ingest_api.py"]
+    tests:
+      - "pytest tests/integration/test_event_ingest_api.py -q"
+    done_when:
+      - "pytest green"
+      - "Endpoint persists normalized events and returns ack"
+  - id: FTR-02-ST3
+    task: FTR-02
+    title: "Historical backfill & dedupe"
+    description: "Implement scheduled job to backfill events, deduplicate transactions, and reconcile queue lag."
+    touched_paths: ["workers/cron/**", "services/api/tasks/backfill.py", "tests/integration/test_event_backfill.py"]
+    tests:
+      - "pytest tests/integration/test_event_backfill.py -q"
+    done_when:
+      - "pytest green"
+      - "Backfill handles 1k events with dedupe metrics"
+  - id: FTR-03-ST1
+    task: FTR-03
+    title: "Scoring engine core"
+    description: "Implement wallet scoring algorithms, EWMA updates, and archetype classification pipelines."
+    touched_paths: ["services/api/scoring/**", "packages/scoring/**", "tests/unit/test_scoring_engine.py"]
+    tests:
+      - "pytest tests/unit/test_scoring_engine.py -q"
+    done_when:
+      - "pytest green"
+      - "Score outputs match fixture expectations"
+  - id: FTR-03-ST2
+    task: FTR-03
+    title: "Bias calculator & storage"
+    description: "Compute asset/timeframe bias vectors, persist snapshots, and serve API responses."
+    touched_paths: ["services/api/bias/**", "services/api/routes/bias.py", "tests/integration/test_bias_pipeline.py"]
+    tests:
+      - "pytest tests/integration/test_bias_pipeline.py -q"
+    done_when:
+      - "pytest green"
+      - "Bias endpoint returns latest values with confidence"
+  - id: FTR-03-ST3
+    task: FTR-03
+    title: "LLM trigger logic"
+    description: "Add deterministic trigger gating, rate limiting, and caching hooks ahead of full LLM integration."
+    touched_paths: ["services/api/llm/trigger.py", "packages/cache/**", "tests/unit/test_llm_triggers.py"]
+    tests:
+      - "pytest tests/unit/test_llm_triggers.py -q"
+    done_when:
+      - "pytest green"
+      - "Trigger rules enforce cost thresholds"
+  - id: FTR-04-ST1
+    task: FTR-04
+    title: "Risk configuration loader"
+    description: "Model YAML risk policies, load into typed structures, and expose mode-specific constraints."
+    touched_paths: ["config/risk/**", "services/api/risk/config_loader.py", "tests/unit/test_risk_config.py"]
+    tests:
+      - "pytest tests/unit/test_risk_config.py -q"
+    done_when:
+      - "pytest green"
+      - "Modes expose expected limits and thresholds"
+  - id: FTR-04-ST2
+    task: FTR-04
+    title: "Policy engine validators"
+    description: "Implement trade validation checks for capital, correlation, drawdown, frequency, and credibility."
+    touched_paths: ["services/api/risk/policy_engine.py", "services/api/schemas/trading.py", "tests/unit/test_policy_engine.py"]
+    tests:
+      - "pytest tests/unit/test_policy_engine.py -q"
+    done_when:
+      - "pytest green"
+      - "Hard and soft rule paths covered in tests"
+  - id: FTR-04-ST3
+    task: FTR-04
+    title: "Risk monitoring & kill switch"
+    description: "Track real-time risk metrics, expose monitoring API, and implement kill switch procedures."
+    touched_paths: ["services/api/risk/monitor.py", "services/order-manager/killswitch.py", "tests/integration/test_risk_monitor.py"]
+    tests:
+      - "pytest tests/integration/test_risk_monitor.py -q"
+    done_when:
+      - "pytest green"
+      - "Kill switch closes demo orders in simulation"
+  - id: FTR-05-ST1
+    task: FTR-05
+    title: "OKX demo client"
+    description: "Build OKX REST/WebSocket client for demo mode with request signing and sandbox endpoints."
+    touched_paths: ["services/order-manager/okx_client.py", "services/order-manager/__init__.py", "tests/unit/test_okx_client.py"]
+    tests:
+      - "pytest tests/unit/test_okx_client.py -q"
+    done_when:
+      - "pytest green"
+      - "Mocked OKX responses parsed correctly"
+  - id: FTR-05-ST2
+    task: FTR-05
+    title: "Order manager integration"
+    description: "Wire order routing through risk engine, handle lifecycle state transitions, and persist orders."
+    touched_paths: ["services/order-manager/service.py", "services/api/routes/orders.py", "tests/integration/test_order_manager.py"]
+    tests:
+      - "pytest tests/integration/test_order_manager.py -q"
+    done_when:
+      - "pytest green"
+      - "Orders progress through pending→filled mocks"
+  - id: FTR-05-ST3
+    task: FTR-05
+    title: "Execution telemetry"
+    description: "Capture fills, fees, and errors into audit logging with structured events and metrics emission."
+    touched_paths: ["services/order-manager/telemetry.py", "packages/telemetry/**", "tests/integration/test_order_telemetry.py"]
+    tests:
+      - "pytest tests/integration/test_order_telemetry.py -q"
+    done_when:
+      - "pytest green"
+      - "Audit logs include success and failure cases"
+  - id: FTR-06-ST1
+    task: FTR-06
+    title: "Groq client & cache"
+    description: "Implement Groq API client with tiered models, batch support, and semantic caching layer."
+    touched_paths: ["services/api/llm/client.py", "packages/llm/**", "tests/unit/test_llm_client.py"]
+    tests:
+      - "pytest tests/unit/test_llm_client.py -q"
+    done_when:
+      - "pytest green"
+      - "Cache hits reduce client invocations in tests"
+  - id: FTR-06-ST2
+    task: FTR-06
+    title: "LLM analysis service"
+    description: "Process events through LLM, persist analysis payloads, and expose internal API endpoint."
+    touched_paths: ["services/api/llm/service.py", "services/api/routes/internal_llm.py", "tests/integration/test_llm_analysis.py"]
+    tests:
+      - "pytest tests/integration/test_llm_analysis.py -q"
+    done_when:
+      - "pytest green"
+      - "Event analyses stored with bias impact data"
+  - id: FTR-06-ST3
+    task: FTR-06
+    title: "LLM cost tracking"
+    description: "Track per-call cost, enforce daily budget, and emit alerts when thresholds exceeded."
+    touched_paths: ["services/api/llm/cost_tracker.py", "services/api/monitoring/llm_budget.py", "tests/unit/test_llm_budget.py"]
+    tests:
+      - "pytest tests/unit/test_llm_budget.py -q"
+    done_when:
+      - "pytest green"
+      - "Budget alerts fire at 80% usage in tests"
+  - id: FTR-07-ST1
+    task: FTR-07
+    title: "PWA scaffolding"
+    description: "Initialize Next.js 14 PWA with auth guards, layout, and shared UI toolkit."
+    touched_paths: ["apps/web/app/**", "apps/web/package.json", "apps/web/next.config.js", "apps/web/tests/pwa.spec.ts"]
+    tests:
+      - "pnpm --filter web test -- --run"
+    done_when:
+      - "pnpm tests green"
+      - "PWA manifest and service worker generated"
+  - id: FTR-07-ST2
+    task: FTR-07
+    title: "Trading dashboard"
+    description: "Implement dashboards for positions, bias, and whale activity with real-time data hooks."
+    touched_paths: ["apps/web/app/(dashboard)/**", "apps/web/components/**", "apps/web/tests/dashboard.spec.ts"]
+    tests:
+      - "pnpm --filter web test -- --run"
+    done_when:
+      - "pnpm tests green"
+      - "Dashboard renders mocked data snapshots"
+  - id: FTR-07-ST3
+    task: FTR-07
+    title: "Chat assistant UI"
+    description: "Add chat interface with streaming responses, citations, and websocket subscriptions."
+    touched_paths: ["apps/web/app/chat/**", "apps/web/lib/ws.ts", "apps/web/tests/chat.spec.ts"]
+    tests:
+      - "pnpm --filter web test -- --run"
+    done_when:
+      - "pnpm tests green"
+      - "UI displays citations and confidence badges"
+  - id: FTR-08-ST1
+    task: FTR-08
+    title: "Metrics instrumentation"
+    description: "Expose Prometheus metrics for trading, whale, system, and LLM KPIs."
+    touched_paths: ["services/api/monitoring/metrics.py", "workers/common/metrics.py", "tests/unit/test_metrics.py"]
+    tests:
+      - "pytest tests/unit/test_metrics.py -q"
+    done_when:
+      - "pytest green"
+      - "Metrics endpoint lists required gauges and histograms"
+  - id: FTR-08-ST2
+    task: FTR-08
+    title: "Logging and tracing"
+    description: "Implement structured logging, trace propagation, and request ID handling across services."
+    touched_paths: ["packages/telemetry/logging.py", "packages/telemetry/tracing.py", "tests/integration/test_tracing.py"]
+    tests:
+      - "pytest tests/integration/test_tracing.py -q"
+    done_when:
+      - "pytest green"
+      - "Traces link API calls to workers in tests"
+  - id: FTR-08-ST3
+    task: FTR-08
+    title: "Alert routing"
+    description: "Define alert rules for risk, drawdown, and LLM budget plus notification integrations."
+    touched_paths: ["services/reporter/alerts.py", "config/alerts/**", "tests/unit/test_alerts.py"]
+    tests:
+      - "pytest tests/unit/test_alerts.py -q"
+    done_when:
+      - "pytest green"
+      - "Alert mocks fire for breach scenarios"
+  - id: FTR-09-ST1
+    task: FTR-09
+    title: "CI pipeline"
+    description: "Configure GitHub Actions workflow for tests, lint, security scans, and coverage gating."
+    touched_paths: [".github/workflows/ci.yml", "Makefile", "scripts/ci/**", "tests/ci/test_ci_config.py"]
+    tests:
+      - "pytest tests/ci/test_ci_config.py -q"
+      - "pytest -q"
+    done_when:
+      - "pytest green"
+      - "Workflow simulates passing run locally"
+  - id: FTR-09-ST2
+    task: FTR-09
+    title: "Coverage enforcement"
+    description: "Add coverage configuration, fail under 80%, and generate HTML reports for review."
+    touched_paths: ["pyproject.toml", "coverage.ini", "tests/coverage/test_thresholds.py"]
+    tests:
+      - "pytest tests/coverage/test_thresholds.py -q"
+      - "pytest --cov=services --cov=workers -q"
+    done_when:
+      - "pytest green"
+      - "Coverage fails below 80% threshold"
+  - id: FTR-09-ST3
+    task: FTR-09
+    title: "Documentation & playbooks"
+    description: "Update docs with runbooks, deployment steps, and mode transition procedures."
+    touched_paths: ["docs/Deployment.md", "docs/Monitoring.md", "docs/TradingModes.md", "docs/README-updates.md"]
+    tests:
+      - "pytest -q"
+    done_when:
+      - "pytest green"
+      - "Docs reviewed for accuracy and completeness"

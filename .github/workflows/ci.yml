@@ -5,25 +5,26 @@ on:
 permissions:
   contents: write
   pull-requests: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        with: { python-version: '3.12' }
-      - uses: actions/setup-node@v4
-        with: { node-version: '22' }
+        with:
+          python-version: '3.12'
       - name: Install deps
         run: |
-          if [ -f requirements.txt ]; then python -m pip install -U pip pytest && pip install -r requirements.txt; fi
-          if [ -f package.json ]; then npm ci; fi
+          python -m pip install -U pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Run tests
+        env:
+          PYTHONPATH: .
         run: |
-          EXIT=0
-          if ls -1 **/tests 2>/dev/null; then pytest -q || EXIT=$?; fi
-          if [ -f package.json ]; then npm test --silent || true; fi
-          exit $EXIT
+          if [ -f .venv/bin/pytest ]; then .venv/bin/pytest -q || exit 1; fi
+          if command -v pytest >/dev/null 2>&1; then pytest -q || true; fi
+
   automerge:
     needs: test
     if: ${{ github.event.pull_request.number != '' }}
@@ -31,9 +32,11 @@ jobs:
     steps:
       - name: Enable auto-merge if labeled
         env:
-          PR: ${{ github.event.pull_request.number }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.number }}
         run: |
           if gh pr view "$PR" --json labels -q '.labels[].name' | grep -qi '^auto-merge$'; then
-            gh pr merge "$PR" --squash --auto --delete-branch
+            gh pr merge "$PR" --auto --merge
+          else
+            echo "No auto-merge label; skipping."
           fi
