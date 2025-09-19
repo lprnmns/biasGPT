@@ -82,9 +82,7 @@ async def dispose_engine() -> None:
     """Dispose engine and reset cached factories (primarily for tests)."""
 
     global _engine, _session_factory
-    if _session_factory is not None:
-        _session_factory.close_all()
-        _session_factory = None
+    _session_factory = None
     if _engine is not None:
         await _engine.dispose()
         _engine = None
