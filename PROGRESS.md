@@ -1,3 +1,3 @@
-Toplam: 4/28 (%14.3)
-Bar: ▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░░
-Son biten: FTR-01-ST4 - Repository layer & fixtures
+Toplam: 5/28 (%17.9)
+Bar: ▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░░░
+Son biten: FTR-02-ST1 - Ingest worker skeleton
