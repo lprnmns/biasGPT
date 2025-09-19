@@ -1,3 +1,3 @@
-Toplam: 8/28 (%28.6)
-Bar: ▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░
-Son biten: FTR-03-ST1 - Scoring engine core
+Toplam: 9/28 (%32.1)
+Bar: ▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░
+Son biten: FTR-03-ST2 - Bias calculator & storage
