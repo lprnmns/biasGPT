@@ -1,0 +1,6 @@
+Objective: Read PRD, Architecture, API, Test Strategy and produce two YAML files:
+1) planning/tasks.yaml with epics/tasks (id, title, depends_on, acceptance_criteria)
+2) planning/subtasks.yaml with atomic subtasks (id, task, title, code_scope[], tests[], done_when[])
+Constraints:
+- IDs like FTR-XX and FTR-XX-STY
+- Keep subtasks small and testable; every subtask must list concrete tests

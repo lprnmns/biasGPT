@@ -1,0 +1,3 @@
+Apply the given subtask. Output ONLY unified diff (no prose).
+Include both implementation and tests. If deps change, patch requirements.txt/package.json too.
+Keep changes within code_scope and respect Acceptance Criteria.
