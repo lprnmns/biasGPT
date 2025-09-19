@@ -20,3 +20,9 @@
   - Output:
     ```command timed out after 15008 milliseconds
 ```
+
+## CI Update
+- Replaced `.github/workflows/ci.yml` with deterministic test + auto-merge pipeline.
+- Commands:
+  - `git add .github/workflows/ci.yml && git commit -m "ci: fix + auto-merge"`
+  - `git push`

@@ -1,1 +1,7 @@
 pytest
+pytest-asyncio
+SQLAlchemy>=2.0
+asyncpg
+aiosqlite
+pydantic>=2.7
+pydantic-settings>=2.2
