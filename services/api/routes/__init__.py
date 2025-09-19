@@ -1,5 +1,6 @@
 """API routers."""
 
+from .bias import router as bias_router
 from .events import router as events_router
 
-__all__ = ["events_router"]
+__all__ = ["bias_router", "events_router"]
