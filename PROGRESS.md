@@ -1,3 +1,3 @@
-Toplam: 6/28 (%21.4)
-Bar: ▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░░
-Son biten: FTR-02-ST2 - Event normalization API
+Toplam: 7/28 (%25.0)
+Bar: ▓▓▓▓▓▓▓░░░░░░░░░░░░░░░░░░░
+Son biten: FTR-02-ST3 - Historical backfill & dedupe
