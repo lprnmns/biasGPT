@@ -1,3 +1,3 @@
-Toplam: 18/28 (%64.3)
-Bar: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░
-Son biten: FTR-06-ST2 - LLM analysis service
+Toplam: 19/28 (%67.9)
+Bar: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░
+Son biten: FTR-06-ST3 - LLM cost tracking
