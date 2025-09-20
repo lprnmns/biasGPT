@@ -1,3 +1,3 @@
-Toplam: 14/28 (%50.0)
-Bar: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░
-Son biten: FTR-05-ST1 - OKX demo client
+Toplam: 15/28 (%53.6)
+Bar: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░
+Son biten: FTR-05-ST2 - Order manager integration
