@@ -9,6 +9,7 @@ from services.api.risk.monitor import PositionSnapshot, RiskMonitor
 from services.api.risk.policy import PolicyEngine, PortfolioState, ProposedTrade
 from services.order_manager.killswitch import KillSwitch
 from services.order_manager.okx_client import OKXClient
+from services.order_manager.telemetry import TelemetryRecorder
 
 
 @dataclass(slots=True)
@@ -30,11 +31,13 @@ class OrderManager:
         policy_engine: PolicyEngine,
         risk_monitor: RiskMonitor,
         kill_switch: KillSwitch,
+        telemetry: Optional[TelemetryRecorder] = None,
     ) -> None:
         self.okx_client = okx_client
         self.policy_engine = policy_engine
         self.risk_monitor = risk_monitor
         self.kill_switch = kill_switch
+        self.telemetry = telemetry or TelemetryRecorder()
 
     async def submit_order(
         self,
@@ -64,8 +67,13 @@ class OrderManager:
             return {"success": False, "reason": "risk_alert", "alerts": metrics.alerts}
 
         payload = self._build_payload(signal)
-        response = await self.okx_client.create_order(payload)
-        return {"success": True, "response": response}
+        try:
+            response = await self.okx_client.create_order(payload)
+            self.telemetry.record_success(payload, response)
+            return {"success": True, "response": response}
+        except Exception as exc:  # pragma: no cover
+            self.telemetry.record_failure(payload, str(exc))
+            raise
 
     def _build_payload(self, signal: TradeSignal) -> Dict[str, Any]:
         side = signal.side.lower()
