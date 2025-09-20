@@ -40,3 +40,18 @@ export const sampleWhaleEvents = [
     timestamp: "2025-01-01T01:30:00Z"
   }
 ];
+
+export const sampleChatHistory = [
+  {
+    role: "assistant",
+    content: "Whale deposit detected; bias leaning bearish for BTC.",
+    citations: ["evt_123", "evt_456"],
+    confidence: 0.78
+  },
+  {
+    role: "user",
+    content: "Should we hedge our ETH exposure?",
+    citations: [],
+    confidence: null
+  }
+];
