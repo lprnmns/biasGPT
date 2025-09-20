@@ -79,6 +79,7 @@ async def test_order_manager_submits_order():
     result = await manager.submit_order(signal, portfolio, positions)
     assert result["success"] is True
     assert transport.last_call is not None
+    assert manager.telemetry.events[-1].status == "success"
 
 
 @pytest.mark.asyncio
@@ -92,6 +93,7 @@ async def test_order_manager_respects_kill_switch():
     result = await manager.submit_order(signal, portfolio, positions)
     assert result["success"] is False
     assert result["reason"] == "kill_switch_active"
+    assert manager.telemetry.events == []
 
 
 @pytest.mark.asyncio
@@ -104,6 +106,7 @@ async def test_order_manager_policy_reject():
     result = await manager.submit_order(signal, portfolio, positions)
     assert result["success"] is False
     assert result["reason"] == "policy_rejected"
+    assert manager.telemetry.events == []
 
 
 @pytest.mark.asyncio
@@ -126,3 +129,4 @@ async def test_order_manager_risk_alert():
     result = await manager.submit_order(signal, portfolio, positions)
     assert result["success"] is False
     assert result["reason"] == "risk_alert"
+    assert manager.telemetry.events == []
