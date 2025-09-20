@@ -1,0 +1,10 @@
+{
+  "critical": [
+    { "type": "pagerduty", "target": "team-oncall" },
+    { "type": "slack", "channel": "#incidents" }
+  ],
+  "warning": [
+    { "type": "slack", "channel": "#trading-alerts" },
+    { "type": "email", "target": "ops@example.com" }
+  ]
+}
