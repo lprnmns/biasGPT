@@ -1,0 +1,16 @@
+{
+  "extends": "@tsconfig/next/tsconfig.json",
+  "compilerOptions": {
+    "types": ["vitest/globals"],
+    "baseUrl": "."
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.d.ts"
+  ],
+  "exclude": ["node_modules"]
+}
