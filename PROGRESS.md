@@ -1,3 +1,3 @@
-Toplam: 20/28 (%71.4)
-Bar: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░
-Son biten: FTR-07-ST2 - Trading dashboard
+Toplam: 21/28 (%75.0)
+Bar: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░
+Son biten: FTR-07-ST3 - Chat assistant UI
