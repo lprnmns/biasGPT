@@ -1,0 +1,30 @@
+{
+  "single_position": {
+    "max_size_percent": 0.25,
+    "max_loss_percent": 0.5,
+    "max_leverage": 3,
+    "min_rr_ratio": 1.5
+  },
+  "correlation_limits": {
+    "btc_eth_combined": 0.70,
+    "total_crypto": 1.00,
+    "same_direction": 0.80
+  },
+  "portfolio": {
+    "max_open_positions": 5,
+    "max_daily_trades": 10,
+    "max_total_risk": 1.00,
+    "max_correlation_risk": 0.70
+  },
+  "drawdown_limits": {
+    "daily": 3.0,
+    "weekly": 7.0,
+    "monthly": 15.0,
+    "actions_on_breach": {
+      "daily_3pct": "halt_new_trades",
+      "daily_5pct": "close_all_positions",
+      "weekly_7pct": "reduce_size_50pct",
+      "monthly_15pct": "switch_to_demo"
+    }
+  }
+}
