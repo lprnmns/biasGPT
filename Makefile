@@ -1,10 +1,10 @@
-PYTHON = .venv/bin/python
-PYTEST = .venv/bin/pytest
+PYTHON ?= python
+PYTEST ?= $(PYTHON) -m pytest
 
 .PHONY: test lint fmt
 
 test:
-	$(PYTHON) -m pytest -q
+	$(PYTEST) -q
 
 lint:
 	echo "No lint configured"
