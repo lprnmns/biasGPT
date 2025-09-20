@@ -1,3 +1,3 @@
-Toplam: 24/28 (%85.7)
-Bar: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-Son biten: FTR-08-ST3 - Alert routing
+Toplam: 25/28 (%89.3)
+Bar: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░
+Son biten: FTR-09-ST2 - Coverage enforcement
