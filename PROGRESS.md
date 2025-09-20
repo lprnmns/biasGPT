@@ -1,3 +1,3 @@
-Toplam: 11/28 (%39.3)
-Bar: ▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░
-Son biten: FTR-04-ST1 - Risk configuration loader
+Toplam: 12/28 (%42.9)
+Bar: ▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░
+Son biten: FTR-04-ST2 - Policy engine validators
