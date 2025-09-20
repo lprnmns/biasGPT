@@ -1,3 +1,3 @@
-Toplam: 16/28 (%57.1)
-Bar: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░
-Son biten: FTR-05-ST3 - Execution telemetry
+Toplam: 17/28 (%60.7)
+Bar: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░
+Son biten: FTR-06-ST1 - Groq client & cache
