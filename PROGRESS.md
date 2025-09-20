@@ -1,3 +1,3 @@
-Toplam: 10/28 (%35.7)
-Bar: ▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░░
-Son biten: FTR-03-ST3 - LLM trigger logic
+Toplam: 11/28 (%39.3)
+Bar: ▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░░░░░░
+Son biten: FTR-04-ST1 - Risk configuration loader
