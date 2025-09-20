@@ -1,3 +1,3 @@
-Toplam: 25/28 (%89.3)
-Bar: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░
-Son biten: FTR-09-ST2 - Coverage enforcement
+Toplam: 26/28 (%92.9)
+Bar: ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
+Son biten: FTR-09-ST3 - Documentation & playbooks
