@@ -1,42 +1,26 @@
 name: CI
+
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
+
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
+  pull-requests: read
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-      - name: Install deps
+          python-version: '3.11'
+      - name: Install dependencies
         run: |
           python -m pip install -U pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Run tests
-        env:
-          PYTHONPATH: .
         run: |
-          if [ -f .venv/bin/pytest ]; then .venv/bin/pytest -q || exit 1; fi
-          if command -v pytest >/dev/null 2>&1; then pytest -q || true; fi
-
-  automerge:
-    needs: test
-    if: ${{ github.event.pull_request.number != '' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Enable auto-merge if labeled
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR: ${{ github.event.pull_request.number }}
-        run: |
-          if gh pr view "$PR" --json labels -q '.labels[].name' | grep -qi '^auto-merge$'; then
-            gh pr merge "$PR" --auto --merge
-          else
-            echo "No auto-merge label; skipping."
-          fi
+          make test
